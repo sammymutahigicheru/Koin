@@ -20,6 +20,9 @@ val appModule = module {
     single { provideRetrofit(get(), BASE_URL) }
     single { provideApiService(get()) }
     single { provideNetworkHelper(androidContext()) }
+    single<ApiHelper> {
+        return@single ApiHelperImpl(get())
+    }
 }
 
 /*
