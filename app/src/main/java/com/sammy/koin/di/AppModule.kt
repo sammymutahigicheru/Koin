@@ -4,11 +4,23 @@ import android.content.Context
 import com.sammy.koin.data.api.ApiHelper
 import com.sammy.koin.data.api.ApiHelperImpl
 import com.sammy.koin.data.api.ApiService
+import com.sammy.koin.utils.BASE_URL
+import com.sammy.koin.utils.NetworkHelper
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.BuildConfig
+import org.koin.android.ext.koin.androidContext
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+
+
+val appModule = module {
+    single { provideOkHttpClient() }
+    single { provideRetrofit(get(), BASE_URL) }
+    single { provideApiService(get()) }
+    single { provideNetworkHelper(androidContext()) }
+}
 
 /*
 * create functions that you want to provide as dependencies
