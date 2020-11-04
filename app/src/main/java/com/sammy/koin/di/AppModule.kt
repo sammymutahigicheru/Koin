@@ -20,16 +20,12 @@ val appModule = module {
     single { provideRetrofit(get(), BASE_URL) }
     single { provideApiService(get()) }
     single { provideNetworkHelper(androidContext()) }
+
     single<ApiHelper> {
         return@single ApiHelperImpl(get())
     }
 }
 
-/*
-* create functions that you want to provide as dependencies
-*
-*
-* */
 private fun provideNetworkHelper(context: Context) = NetworkHelper(context)
 
 private fun provideOkHttpClient() = if (BuildConfig.DEBUG) {
@@ -44,14 +40,13 @@ private fun provideOkHttpClient() = if (BuildConfig.DEBUG) {
 
 private fun provideRetrofit(
     okHttpClient: OkHttpClient,
-    BASE_URL: String
+    url: String
 ): Retrofit =
     Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create())
-        .baseUrl(BASE_URL)
+        .baseUrl(url)
         .client(okHttpClient)
         .build()
 
-private fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
-
-private fun provideApiHelper(apiHelper: ApiHelperImpl): ApiHelper = apiHelper
+private fun provideApiService(retrofit: Retrofit): ApiService =
+    retrofit.create(ApiService::class.java)

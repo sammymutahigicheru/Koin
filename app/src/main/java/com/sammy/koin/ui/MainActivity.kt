@@ -1,4 +1,5 @@
 package com.sammy.koin.ui
+
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -12,11 +13,10 @@ import com.sammy.koin.utils.Status
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
+
 class MainActivity : AppCompatActivity() {
-    /*
-    * by viewModel() creates the instance for the ViewModel
-    * */
-    private val mainViewModel:MainViewModel by viewModel()
+
+    private val mainViewModel : MainViewModel by viewModel()
     private lateinit var adapter: MainAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +24,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setupUI()
         setupObserver()
+
     }
+
     private fun setupUI() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = MainAdapter(arrayListOf())
